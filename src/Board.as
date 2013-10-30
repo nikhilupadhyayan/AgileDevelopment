@@ -15,7 +15,10 @@ package
 		{
 		trace("draw called");
 		}
-		
+		public function checkResult()
+		{
+				trace("checking result");
+		}
 	}
 
 }
