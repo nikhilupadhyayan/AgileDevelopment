@@ -11,7 +11,7 @@ package
 		public function Board() 
 		{
 			
-			trace("creating board");
+			
 			player1 = new Player();
 			player2 = new Player();
 		}
