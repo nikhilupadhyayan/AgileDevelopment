@@ -16,7 +16,8 @@ package
 		{
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);
-			var game:NewGame = new NewGame();
+			
+			var menu:Menu = new Menu();
 		}
 		
 		private function init(e:Event = null):void 
