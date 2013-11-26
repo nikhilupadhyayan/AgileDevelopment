@@ -16,6 +16,8 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
+    <class path="testsrc" />
+    <class path="lukebayes-asunit-4.0.3-0-ge2af845\lukebayes-asunit-e2af845\as3\src" />
   </classpaths>
   <!-- Build options -->
   <build>
