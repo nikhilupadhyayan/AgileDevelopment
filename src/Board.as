@@ -2,36 +2,75 @@ package
 {
 	import flash.display.Bitmap;
 		import flash.display.Sprite;
-
+	 import flash.events.MouseEvent;
 	/**
 	 * ...
 	 * @author Nikhil
 	 */
 	public class Board extends Sprite
 	{
-		private var player1:Player;
-		private var player2:Player;
+		//private var player1:Player;
+		//private var player2:Player;
 		private var matrix:Array;
-		private var count:int;
+		private var count:int;//count moves
 		[Embed(source = "../board.png")]
 		private var BoardClass:Class;
-		private var boardd:Bitmap;
+		private var board:Bitmap=new BoardClass();//board image
+		private var player:int = 1;
+		private var tempimg:Sprite;//to alt between X and O
+		
+		[Embed(source = "../cross.png")]
+		private var CrossClass:Class;
+		
+		[Embed(source = "../round.png")]
+		private var RoundClass:Class;
+		
+		private var round:Bitmap;
+		private var cross:Bitmap;
 		public function Board() 
 		{
 			
-		boardd = new BoardClass();
-			player1 = new Player();
-			player2 = new Player();
 			draw();
+			addEventListener(MouseEvent.CLICK, play);
+			
+			//player1 = new Player();
+			//player2 = new Player();
+			
 			//startGame();
+		}
+		
+		private function play(e:MouseEvent):void 
+		{
+				check
+				var row:int = e.localY / 100;
+				var col:int = e.localX / 100;
+				trace(row + "," + col);
+				tempimg = new Sprite();
+				round = new RoundClass();
+				cross=new CrossClass();
+			     if (player == 1)
+				{
+					tempimg.addChild(round);
+					player = 2;
+					matrix[row][col] = 1;
+				}
+				else if(player==2)
+				{
+						tempimg.addChild(cross);
+						player = 1;
+						matrix[row][col] = 2;
+				}
+				tempimg.x = col * 100+5;
+				tempimg.y = row * 100+5;
+				addChild(tempimg);
 		}
 		public function draw():void
 		{
 			matrix =[[0,0,0],[0,0,0],[0,0,0]];
 			count = 0;
 			
-		//			stage.addChild(boardd);
-		addChild(boardd);
+		
+		addChild(board);
 		trace("drawing cells");
 	
 		 
@@ -97,12 +136,13 @@ package
 				{
 				trace("player1's turn:");
 				
-				player1.play(1);
+				//player1.play(1);
 				trace("Player2's turn:");
-				player2.play(2);
+				//player2.play(2);
 				}
 			
 		}
+		
 	}
 
 }

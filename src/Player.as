@@ -7,14 +7,7 @@ package
 	 */
 	public class Player 
 	{
-		[Embed(source = "../cross.png")]
-		private var CrossClass:Class;
 		
-		[Embed(source = "../round.png")]
-		private var RoundClass:Class;
-		
-		private var round:Bitmap;
-		private var cross:Bitmap;
 		public function Player() 
 		{
 			round = new RoundClass();
