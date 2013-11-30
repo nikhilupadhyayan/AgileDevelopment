@@ -77,6 +77,22 @@
     <asset path="1wins.png" />
     <asset path="2wins.png" />
     <asset path="draw.png" />
+    <asset path="mainBg.png" />
+    <asset path="playbtn.png" />
+    <asset path="playOverbtn.png" />
+    <asset path="playClickbtn.png" />
+    <asset path="aboutbtn.png" />
+    <asset path="aboutclick.png" />
+    <asset path="aboutover.png" />
+    <asset path="backclickbtn.png" />
+    <asset path="backoverbtn.png" />
+    <asset path="undobtn.png" />
+    <asset path="undoclickbtn.png" />
+    <asset path="undooverbtn.png" />
+    <asset path="restart.png" />
+    <asset path="restartclickbtn.png" />
+    <asset path="restartoverbtn.png" />
+    <asset path="aboutPage.png" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>

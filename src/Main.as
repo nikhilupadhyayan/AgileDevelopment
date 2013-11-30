@@ -15,12 +15,10 @@ package
 	{
 		
 		
-		[Embed(source = "../board.png")]
-		private var BoardClass:Class;
-		var image:Bitmap;
+		
 		public function Main():void 
 		{
-			image = new BoardClass();
+			
 			/*
 			var unittests:TestRunner = new TestRunner();
       stage.addChild(unittests);
@@ -42,8 +40,8 @@ package
 			
 			// entry point
 			trace("main");
-			//addChild(image);
-			 var menu:Menu = new Menu();
+			
+			var menu:Menu = new Menu();
 			stage.addChild(menu);
 			
 		}

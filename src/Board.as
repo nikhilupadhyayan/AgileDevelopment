@@ -1,6 +1,7 @@
 package
 {
 	import flash.display.Bitmap;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.net.drm.DRMPlaybackTimeWindow;
@@ -19,9 +20,10 @@ package
 		[Embed(source="../board.png")]
 		private var BoardClass:Class;
 		private var board:Bitmap = new BoardClass(); //board image
+		private var boardSprite:Sprite = new Sprite();
 		private var player:int = 1;
 		private var tempimg:Sprite; //to alt between X and O
-		
+	
 		[Embed(source="../cross.png")]
 		private var CrossClass:Class;
 		
@@ -46,24 +48,82 @@ package
 		[Embed(source = "../draw.png")]
 		private var tieClass:Class;
 		private var tie:Bitmap = new tieClass();
+		
+		private var back:Button=new Button("back");
+		private var undo:Button=new Button("undo");
+		private var restart:Button = new Button("restart");
+		var row:int;
+		var col:int;
+		var undoed:Boolean = false;
 		public function Board()
 		{
 			
 			draw();
-			addEventListener(MouseEvent.CLICK, play);
+			boardSprite.addEventListener(MouseEvent.CLICK, play);
+			
+			back.x = 0;
+			back.y = 300;
+			back.height = 50;
+			back.width = 100;
+			
+			undo.x = back.x + back.width;
+			undo.y = back.y;
+			undo.height = back.height;
+			undo.width = back.width;
+			
+			restart.x = undo.x + undo.width;
+			restart.y = back.y;
+			restart.width = back.width;
+			restart.height = back.height;
+			
+			
+			back.addEventListener(MouseEvent.CLICK, back_click);
+			undo.addEventListener(MouseEvent.CLICK, undo_click);
+			restart.addEventListener(MouseEvent.CLICK, restart_click);
+			addChild(restart);
+			addChild(undo);
+			addChild(back);
+			
+		}
 		
-			//player1 = new Player();
-			//player2 = new Player();
+		private function restart_click(e:MouseEvent):void 
+		{
+			var menu:DisplayObjectContainer = this.parent;
+			menu.removeChild(this);
+			var board:Board = new Board();
+			menu.addChild(board);
+		}
 		
-			//startGame();
+		private function undo_click(e:MouseEvent):void 
+		{
+			//removeChildAt(this.numChildren - 1);
+			
+			if (count > 0&&!undoed)//see if unoding is enabled
+			{
+				trace("Inside shit");
+			tempimg.removeChildAt(0);
+			if (player == 1)
+			player = 2;
+			else if (player == 2)
+			player = 1;
+			matrix[row][col] = 0;
+			count--;
+			undoed = true;//disable undoing so that user cant undo twice simultaneously
+			}
+			
+		}
+		
+		private function back_click(e:MouseEvent):void 
+		{
+				parent.removeChild(this);
 		}
 		
 		public function draw():void
 		{
 			matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 			count = 0;
-			
-			addChild(board);
+			boardSprite.addChild(board) ;
+			addChild(boardSprite);
 			trace("drawing cells");
 		
 		}
@@ -72,30 +132,39 @@ package
 		{
 			
 			
-				var row:int = e.localY / 100;
-				var col:int = e.localX / 100;
+				row= e.localY/100;
+				col = e.localX / 100;
 				trace(row + "," + col);
 				tempimg = new Sprite();
 				round = new RoundClass();
 				cross = new CrossClass();
 				if (player == 1)
 				{
+					if (!matrix[row][col])
+					{
+					undoed = false;//enables undoing
 					tempimg.addChild(round);
 					player = 2;
 					matrix[row][col] = 1;
 					count++;
+					}
 				}
 				else if (player == 2)
 				{
+					if (!matrix[row][col])
+					{
+					undoed = false;//enables undoing
 					tempimg.addChild(cross);
 					player = 1;
 					matrix[row][col] = 2;
 					count++;
+					}
 				}
+				
 				tempimg.x = col * 100 + 5;
 				tempimg.y = row * 100 + 5;
 				addChild(tempimg);
-			
+				
 			if(getResult())
 			{
 				var i:int = 0;
@@ -109,9 +178,12 @@ package
 					tempimg.addChild(twowins);
 				else
 					tempimg.addChild(tie);
+					
 				//tempimg.addChild(gameoverBg);
 				tempimg.alpha = 0.8;
-				parent.addChild(tempimg);
+				addChild(tempimg);
+				undo.removeEventListener(MouseEvent.CLICK,undo_click);
+				
 				
 			}
 		}
@@ -149,7 +221,7 @@ package
 			}
 			for (i = 0; i < 3; ++i) //checking columns
 			{
-				if (matrix[0][i] == 1 && matrix[1][0] == 1 && matrix[2][0] == 1)
+				if (matrix[0][i] == 1 && matrix[1][i] == 1 && matrix[2][i] == 1)
 					return 1;
 				else if (matrix[0][i] == 2 && matrix[1][i] == 2 && matrix[2][i] == 2)
 					return 2;
@@ -175,13 +247,7 @@ package
 		
 		}
 		
-		public function startGame():void
-		{
-			//while (!checkForResult())
-			
 		
-		}
-	
 	}
 
 }
