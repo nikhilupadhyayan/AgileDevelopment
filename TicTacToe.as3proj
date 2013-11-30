@@ -70,9 +70,13 @@
   </intrinsics>
   <!-- Assets to embed into the output SWF -->
   <library>
-    <asset path="board.png" update="..\..\Desktop\tictactoe\board.png" />
-    <asset path="cross.png" update="..\..\Desktop\tictactoe\cross.png" />
-    <asset path="round.png" update="..\..\Desktop\tictactoe\round.png" />
+    <asset path="board.png" />
+    <asset path="cross.png" />
+    <asset path="round.png" />
+    <asset path="gameoverbg.png" />
+    <asset path="1wins.png" />
+    <asset path="2wins.png" />
+    <asset path="draw.png" />
   </library>
   <!-- Class files to compile (other referenced classes will automatically be included) -->
   <compileTargets>
