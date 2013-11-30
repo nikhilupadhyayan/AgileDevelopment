@@ -1,29 +1,40 @@
 package  
 {
+	import flash.display.Bitmap;
+		import flash.display.Sprite;
+
 	/**
 	 * ...
 	 * @author Nikhil
 	 */
-	public class Board 
+	public class Board extends Sprite
 	{
 		private var player1:Player;
 		private var player2:Player;
 		private var matrix:Array;
 		private var count:int;
+		[Embed(source = "../board.png")]
+		private var BoardClass:Class;
+		private var boardd:Bitmap;
 		public function Board() 
 		{
 			
+		boardd = new BoardClass();
 			player1 = new Player();
 			player2 = new Player();
+			draw();
+			//startGame();
 		}
 		public function draw():void
 		{
-			matrix = new Array(3, 3);
+			matrix =[[0,0,0],[0,0,0],[0,0,0]];
 			count = 0;
-			for (var i:int = 0; i < 3;++i )
-				for (var j:int = 0; j < 3;++j )
-					matrix[i, j] = 0;
+			
+		//			stage.addChild(boardd);
+		addChild(boardd);
 		trace("drawing cells");
+	
+		 
 		}
 		public function checkForResult():Boolean
 		{
@@ -57,7 +68,7 @@ package
 						else if (matrix[i, 0] == 2 && matrix[i, 1] == 2 && matrix[i, 2] == 2)
 						return 2;
 				}
-				for (var i:int = 0; i < 3;++i )//checking columns
+				for ( i = 0; i < 3;++i )//checking columns
 				{
 					if (matrix[0, i] == 1 && matrix[1, 0] == 1 && matrix[2, 0] == 1)
 							return 1;
@@ -85,6 +96,7 @@ package
 				while (!checkForResult())
 				{
 				trace("player1's turn:");
+				
 				player1.play(1);
 				trace("Player2's turn:");
 				player2.play(2);

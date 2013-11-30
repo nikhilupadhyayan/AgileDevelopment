@@ -6,12 +6,12 @@ package
 	 */
 	public class NewGame 
 	{
-		private var board:Board;
+		//private var board:Board;
 		
 		public function NewGame() 
 		{
 			trace("new game created");
-			board = new Board();
+			var board:Board = new Board();
 			
 			board.draw();
 			board.startGame();
