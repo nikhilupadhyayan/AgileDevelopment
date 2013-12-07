@@ -100,7 +100,7 @@ package
 			
 			if (count > 0&&!undoed)//see if unoding is enabled
 			{
-				trace("Inside shit");
+				trace("Inside undo_click");
 			tempimg.removeChildAt(0);
 			if (player == 1)
 			player = 2;
